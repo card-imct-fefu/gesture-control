@@ -9,6 +9,9 @@ __pycache__/
 # Idea
 .idea/
 
+# Config
+config.json
+
 # Distribution / packaging
 .Python
 build/
