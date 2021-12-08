@@ -1,6 +1,12 @@
 # gesture-control
 Приложение, в основе которого механика управления жестами
 
+# Запуск
+
+ - ``pip install -r requirements.txt``
+ - Создать конфиг
+ - ``python main.py``
+
 # config
 Для запуска необходим файл config.json
 
