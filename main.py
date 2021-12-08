@@ -1,9 +1,13 @@
 import cv2
-import time
 
+from fps_counter import FpsCounter
 from hand_detector import HandDetector
+from model.hand_sign_classifier import HandSignClassifier
 
-hand_detector = HandDetector(max_num_hands=2)
+hand_detector = HandDetector(max_num_hands=1)
+hand_sign_classifier = HandSignClassifier()
+
+fps_counter = FpsCounter()
 
 cap = cv2.VideoCapture(0)
 
@@ -17,15 +21,16 @@ while True:
     img = cv2.flip(img, 1)
 
     marks = hand_detector.find_marks(img, True)
-    print(marks)
+    if marks:
+        cv2.waitKey(10)
 
-    cTime = time.time()
-    fps = 1 / (cTime - pTime)
-    pTime = cTime
+        hand_sign = hand_sign_classifier.get_label(marks)
+        fps = fps_counter.get()
 
-    cv2.putText(img, str(int(fps)), (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
+        cv2.putText(img,
+                    f"{fps} FPS, {hand_sign}",
+                    (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 
     cv2.imshow("Image", img)
 
 cv2.destroyAllWindows()
-
