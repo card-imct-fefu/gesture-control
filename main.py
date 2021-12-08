@@ -11,9 +11,6 @@ fps_counter = FpsCounter()
 
 cap = cv2.VideoCapture(0)
 
-pTime = 0
-cTime = 0
-
 while True:
     if cv2.waitKey(10) == 27:
         break
