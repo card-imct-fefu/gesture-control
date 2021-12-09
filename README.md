@@ -42,3 +42,7 @@
  - XUSB_GAMEPAD_B
  - XUSB_GAMEPAD_X
  - XUSB_GAMEPAD_Y
+
+# Решение проблем
+
+ - ``mediapipe`` и ``vgamepad`` ругаются, если в пути проекта есть кириллица
