@@ -4,26 +4,18 @@ import itertools
 import cv2
 import mediapipe as mp
 
+mpHands = mp.solutions.hands
+mpDraw = mp.solutions.drawing_utils
+mpDrawingStyles = mp.solutions.drawing_styles
+
 
 class HandDetector:
 
-    def __init__(self,
-                 max_num_hands=1,
-                 max_detection_confidence=0.7,
-                 min_tracking_confidence=0.5):
-        self.mpHands = mp.solutions.hands
-        self.mpDraw = mp.solutions.drawing_utils
-        self.hands = self.mpHands.Hands(
-            static_image_mode=True,
-            max_num_hands=max_num_hands,
-            min_detection_confidence=max_detection_confidence,
-            min_tracking_confidence=min_tracking_confidence)
-
-    def find_marks(self, image, draw=False):
+    @staticmethod
+    def find_marks(hands, image, draw=False):
         def pre_process_landmark(landmark_list):
             temp_landmark_list = copy.deepcopy(landmark_list)
 
-            # Convert to relative coordinates
             base_x, base_y = 0, 0
             for index, landmark_point in enumerate(temp_landmark_list):
                 if index == 0:
@@ -46,8 +38,8 @@ class HandDetector:
 
             return temp_landmark_list
 
-        imgRGB = cv2.cvtColor(image, cv2.cv2.COLOR_BGR2RGB)
-        hands_processed = self.hands.process(imgRGB)
+        img_rgb = cv2.cvtColor(image, cv2.cv2.COLOR_BGR2RGB)
+        hands_processed = hands.process(img_rgb)
         marks = []
 
         if hands_processed.multi_hand_landmarks:
@@ -57,10 +49,12 @@ class HandDetector:
                     cx, cy = int(lm.x * w), int(lm.y * h)
                     marks.append([cx, cy])
                 if draw:
-                    self.mpDraw.draw_landmarks(
+                    mpDraw.draw_landmarks(
                         image,
                         handLms,
-                        self.mpHands.HAND_CONNECTIONS)
+                        mpHands.HAND_CONNECTIONS,
+                        mpDrawingStyles.get_default_hand_landmarks_style(),
+                        mpDrawingStyles.get_default_hand_connections_style())
 
             return pre_process_landmark(marks)
         return marks
