@@ -9,6 +9,10 @@ from model.hand_sign_classifier import HandSignClassifier
 
 gamepad = vg.VX360Gamepad()
 
+window_name = "main"
+view_window = cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
+cv2.setWindowProperty(window_name, cv2.WND_PROP_TOPMOST, 1)
+
 cap = cv2.VideoCapture(0)
 
 cap.set(cv2.CAP_PROP_FPS, 30)
@@ -50,6 +54,6 @@ with mpHands.Hands(
                     (10, 70), cv2.FONT_HERSHEY_PLAIN, 3, (255, 0, 255), 3)
 
         gamepad.update()
-        cv2.imshow("Image", img)
+        cv2.imshow(window_name, img)
 
 cv2.destroyAllWindows()
