@@ -26,3 +26,6 @@ class Config:
 
     def get_max_fps(self):
         return self.data.get("max_fps") or 30
+
+    def get_crop_value(self):
+        return self.data.get("crop_value") or 0
