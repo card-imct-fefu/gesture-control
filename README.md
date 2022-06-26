@@ -14,10 +14,16 @@
 
 ```
 {
-    "okay": "XUSB_GAMEPAD_A",
-    "close": "XUSB_GAMEPAD_B"
+    "open": "XUSB_GAMEPAD_A",
+    "close": "XUSB_GAMEPAD_B",
+    "video_capture": 0,
+    "crop_value": 0.2
 }
 ```
+
+```video_capture``` - камера
+
+```crop_value``` - коэффициент для кропа изображения
 
 Доступные ключи:
  - open 
