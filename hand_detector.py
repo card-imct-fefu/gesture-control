@@ -38,7 +38,7 @@ class HandDetector:
 
             return temp_landmark_list
 
-        img_rgb = cv2.cvtColor(image, cv2.cv2.COLOR_BGR2RGB)
+        img_rgb = cv2.cvtColor(image, cv2.COLOR_BGR2RGB)
         hands_processed = hands.process(img_rgb)
         marks = []
 
