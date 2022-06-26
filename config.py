@@ -1,4 +1,5 @@
 import json
+
 import vgamepad as vg
 
 
@@ -19,3 +20,9 @@ class Config:
             return get_button(self.data[label])
         except KeyError:
             return None
+
+    def get_video_capture_id(self):
+        return self.data.get("video_capture") or 0
+
+    def get_max_fps(self):
+        return self.data.get("max_fps") or 30

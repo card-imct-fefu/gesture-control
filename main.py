@@ -8,19 +8,18 @@ from hand_detector import HandDetector
 from model.hand_sign_classifier import HandSignClassifier
 
 gamepad = vg.VX360Gamepad()
+config = Config("./config.json")
 
 window_name = "main"
 view_window = cv2.namedWindow(window_name, cv2.WINDOW_NORMAL)
 cv2.setWindowProperty(window_name, cv2.WND_PROP_TOPMOST, 1)
 
-cap = cv2.VideoCapture(0)
+cap = cv2.VideoCapture(config.get_video_capture_id())
+cap.set(cv2.CAP_PROP_FPS, config.get_max_fps())
 
-cap.set(cv2.CAP_PROP_FPS, 30)
+fps_counter = FpsCounter()
 
 hand_sign_classifier = HandSignClassifier()
-fps_counter = FpsCounter()
-config = Config("./config.json")
-
 mpHands = mp.solutions.hands
 mpDraw = mp.solutions.drawing_utils
 
